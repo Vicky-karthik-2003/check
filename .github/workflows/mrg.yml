@@ -1,0 +1,11 @@
+name: Echo good morning
+
+on:
+  workflow_dispatch:  # manual trigger only
+
+jobs:
+  say-hi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo hi
+        run: echo "morning"
