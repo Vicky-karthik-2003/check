@@ -1,7 +1,11 @@
 name: Echo good morning
 
 on:
-  workflow_dispatch:  # manual trigger only
+  workflow_dispatch:  # manual trigger
+  push:
+    branches:
+      - develop       # run automatically on pushes to develop
+      # - master      # optionally, add other branches
 
 jobs:
   say-hi:
