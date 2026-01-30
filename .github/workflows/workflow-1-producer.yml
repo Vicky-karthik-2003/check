@@ -1,0 +1,29 @@
+name: Workflow 1 Producer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run Python program and capture output
+        run: |
+          python script.py > workflow1_output.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow1-artifact
+          path: workflow1_output.txt
