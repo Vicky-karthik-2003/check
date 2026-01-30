@@ -12,11 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact from Workflow 1
+      - name: Download artifact from Workflow 1 run
         uses: actions/download-artifact@v4
         with:
           name: workflow1-artifact
           path: ./artifact-data
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Read artifact content
         run: |
