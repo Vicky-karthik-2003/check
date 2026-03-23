@@ -1,0 +1,38 @@
+name: Manual Trigger Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select environment to deploy"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - production
+
+      version:
+        description: "Enter application version"
+        required: true
+        default: "1.0.0"
+        type: string
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Version: ${{ github.event.inputs.version }}"
+
+      - name: Conditional Step for Production
+        if: ${{ github.event.inputs.environment == 'production' }}
+        run: echo "🚀 Running production deployment steps..."
+
+      - name: Non-Production Step
+        if: ${{ github.event.inputs.environment != 'production' }}
+        run: echo "🧪 Running non-production tasks..."
